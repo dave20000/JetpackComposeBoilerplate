@@ -18,7 +18,7 @@ fun NotzIconButton(
     contentDescription : String,
 ) {
     OutlinedIconButton(
-        onClick = { /*TODO*/ },
+        onClick = onClick,
         shape = RoundedCornerShape(12.dp),
         border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.secondary)
     ) {
