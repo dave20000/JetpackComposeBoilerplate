@@ -10,36 +10,49 @@ val notes = listOf<NoteApiDto>(
         createdAt = "8 Jan 2024",
         lastEditedAt = "16 Feb 2024",
         noteTag = NoteTag.Ideas,
-    ),
-    NoteApiDto(
+    ), NoteApiDto(
         title = "News Modi",
         description = "PM Modi goes to maldives asdnkjsadn aksda shdkajsh daasd asd sads hdaj hdakjshdsahd sakhdkjsahdjas hdakjs hdsakjhda kjshd",
         createdAt = "8 Jan 2024",
         lastEditedAt = "10 Jan 2024",
         noteTag = NoteTag.Journal,
-    ),
-    NoteApiDto(
+    ), NoteApiDto(
+        title = "News Modi",
+        description = "PM Modi goes to maldives asdnkjsadn aksda shdkajsh daasd asd sads hdaj hdakjshdsahd sakhdkjsahdjas hdakjs hdsakjhda kjshd",
+        createdAt = "8 Jan 2024",
+        lastEditedAt = "10 Jan 2024",
+        noteTag = NoteTag.Journal,
+    ), NoteApiDto(
+        title = "News Modi",
+        description = "PM Modi goes to maldives asdnkjsadn aksda shdkajsh daasd asd sads hdaj hdakjshdsahd sakhdkjsahdjas hdakjs hdsakjhda kjshd",
+        createdAt = "8 Jan 2024",
+        lastEditedAt = "10 Jan 2024",
+        noteTag = NoteTag.Journal,
+    ), NoteApiDto(
+        title = "News Modi",
+        description = "PM Modi goes to maldives asdnkjsadn aksda shdkajsh daasd asd sads hdaj hdakjshdsahd sakhdkjsahdjas hdakjs hdsakjhda kjshd",
+        createdAt = "8 Jan 2024",
+        lastEditedAt = "10 Jan 2024",
+        noteTag = NoteTag.Journal,
+    ), NoteApiDto(
         title = "News PM Modi",
         description = "PM Modi goes to ayodhya",
         createdAt = "8 Jan 2024",
         lastEditedAt = "10 Jan 2024",
         noteTag = NoteTag.ToDo,
-    ),
-    NoteApiDto(
+    ), NoteApiDto(
         title = "PM Modi",
         description = "PM Modi goes to laskhdweep",
         createdAt = "8 Jan 2024",
         lastEditedAt = "10 Jan 2024",
         noteTag = NoteTag.Journal,
-    ),
-    NoteApiDto(
+    ), NoteApiDto(
         title = "News Modi",
         description = "PM Modi goes to maldives asdnkjsadn aksda shdkajsh daasd asd sads hdaj hdakjshdsahd sakhdkjsahdjas hdakjs hdsakjhda kjshd",
         createdAt = "8 Jan 2024",
         lastEditedAt = "10 Jan 2024",
         noteTag = NoteTag.Ideas,
-    ),
-    NoteApiDto(
+    ), NoteApiDto(
         title = "News PM Modi",
         description = "PM Modi goes to ayodhya",
         createdAt = "8 Jan 2024",

@@ -26,7 +26,12 @@ fun AppNavHost(
     ) {
         composable(NavigationItem.Home.route) {
             val homeViewModel = hiltViewModel<HomeViewModel>()
-            HomeScreen(navController = navController, homeViewModel = homeViewModel)
+            HomeScreen(
+                homeViewModel = homeViewModel,
+                onNavigateToNewsDetail = {noteIndex ->
+                    navController.navigate(NavigationItem.NoteDetail.passNoteIndex(noteIndex))
+                }
+            )
         }
 
         composable(

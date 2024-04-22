@@ -33,14 +33,14 @@ fun NoteCard(
     note: Note,
     noteIndex: Int,
     bgColor: Color,
-    navController: NavHostController
+    onNavigateToNewsDetail: (noteIndex: Int) -> Unit,
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
         ),
         onClick = {
-            navController.navigate(NavigationItem.NoteDetail.passNoteIndex(noteIndex))
+            onNavigateToNewsDetail(noteIndex);
         },
         colors = CardDefaults.cardColors(
             containerColor = bgColor,
@@ -104,6 +104,6 @@ fun NoteCardPreview() {
         ),
         noteIndex = 1,
         bgColor = Color(173, 216, 230),
-        navController = rememberNavController(),
+        onNavigateToNewsDetail = {}
     )
 }

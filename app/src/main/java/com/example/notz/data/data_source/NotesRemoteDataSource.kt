@@ -2,13 +2,13 @@ package com.example.notz.data.data_source
 
 import com.example.notz.core.notes
 import com.example.notz.data.models.NoteApiDto
-import com.example.notz.domain.models.Note
-import com.example.notz.domain.models.NoteTag
-import kotlinx.coroutines.delay
 
 class NotesRemoteDataSource {
+    private val newsApiService = ApiService.newsApiService
+
     suspend fun getNotes(): List<NoteApiDto> {
-        delay(5000L)
+        val news =  newsApiService.getNewsByCategory(category = null)
+        println("Log: $news")
         return notes
     }
 }

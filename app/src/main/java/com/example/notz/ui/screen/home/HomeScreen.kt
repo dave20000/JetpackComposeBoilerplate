@@ -22,8 +22,8 @@ import com.example.notz.ui.screen.home.components.HomeScreenBody
 
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
-    homeViewModel: HomeViewModel
+    homeViewModel: HomeViewModel,
+    onNavigateToNewsDetail: (noteIndex: Int) -> Unit
 ) {
     val notesState = homeViewModel.state.collectAsState().value
 
@@ -45,7 +45,7 @@ fun HomeScreen(
         floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            HomeScreenBody(notesState = notesState, navController = navController)
+            HomeScreenBody(notesState = notesState, onNavigateToNewsDetail = onNavigateToNewsDetail)
         }
     }
 }
@@ -54,8 +54,8 @@ fun HomeScreen(
 @Composable
 fun HomeScreePreview() {
     HomeScreen(
-        navController = rememberNavController(),
         homeViewModel = hiltViewModel<HomeViewModel>(),
+        onNavigateToNewsDetail = {noteIndex ->  }
     )
 }
 

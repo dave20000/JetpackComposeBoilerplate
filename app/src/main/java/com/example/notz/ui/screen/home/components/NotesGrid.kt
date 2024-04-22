@@ -36,8 +36,9 @@ import com.example.notz.ui.theme.random
 @Composable
 fun HomeScreenBody(
     notesState: NotesState,
-    navController: NavHostController
-) {
+    onNavigateToNewsDetail: (noteIndex: Int) -> Unit,
+
+    ) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(
             text = "Recent Notes",
@@ -46,13 +47,14 @@ fun HomeScreenBody(
             maxLines = 1,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        NotesList(notesState = notesState, navController = navController)
+        NotesList(notesState = notesState, onNavigateToNewsDetail = onNavigateToNewsDetail)
     }
 
 }
 
 @Composable
-fun NotesList(notesState: NotesState, navController: NavHostController) {
+fun NotesList(notesState: NotesState,    onNavigateToNewsDetail: (noteIndex: Int) -> Unit,
+) {
     when (notesState) {
         NotesState.Initial -> Box {}
         NotesState.Loading -> Box(modifier = Modifier.fillMaxSize()) {
@@ -86,7 +88,7 @@ fun NotesList(notesState: NotesState, navController: NavHostController) {
                     NoteCard(
                         note = note, noteIndex = index,
                         bgColor = Color.Companion.random(),
-                        navController
+                        onNavigateToNewsDetail
                     )
                 }
             },
@@ -109,6 +111,6 @@ fun NotesList(notesState: NotesState, navController: NavHostController) {
 fun NotesListPreview() {
     NotesList(
         notesState = NotesState.Loaded(notes.map { it.toModel() }.toList()),
-        navController = rememberNavController()
+        onNavigateToNewsDetail = {}
     )
 }
