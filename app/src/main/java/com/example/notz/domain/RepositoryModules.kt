@@ -1,6 +1,7 @@
 package com.example.notz.domain
 
-import com.example.notz.data.data_source.NotesRemoteDataSource
+import com.example.notz.data.data_source.local.NotesLocalDataSource
+import com.example.notz.data.data_source.remote.NotesRemoteDataSource
 import com.example.notz.data.repositories_impl.NotesRepositoryImpl
 import com.example.notz.domain.repositories.NotesRepository
 import dagger.Module
@@ -15,9 +16,11 @@ class RepositoryModules {
 
     @Provides
     fun providesNotesRepository(
-        notesRemoteDataSource: NotesRemoteDataSource
+        notesRemoteDataSource: NotesRemoteDataSource,
+        notesLocalDataSource: NotesLocalDataSource,
     ): NotesRepository = NotesRepositoryImpl(
         ioDispatcher = Dispatchers.IO,
         notesRemoteDataSource = notesRemoteDataSource,
+        notesLocalDataSource = notesLocalDataSource
     )
 }

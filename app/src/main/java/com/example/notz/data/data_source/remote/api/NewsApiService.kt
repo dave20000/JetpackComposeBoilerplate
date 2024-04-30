@@ -1,6 +1,6 @@
-package com.example.notz.data.data_source
+package com.example.notz.data.data_source.remote.api
 
-import com.example.notz.data.models.NewsApiDto
+import com.example.notz.data.models.api_dto.NewsApiDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

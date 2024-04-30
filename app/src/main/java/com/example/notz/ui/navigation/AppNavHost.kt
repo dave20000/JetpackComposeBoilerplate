@@ -1,5 +1,7 @@
 package com.example.notz.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -11,8 +13,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.notz.ui.screen.home.HomeScreen
 import com.example.notz.ui.screen.home.HomeViewModel
-import com.example.notz.ui.screen.note_detail.NoteDetailScreen
+import com.example.notz.ui.screen.note_add_edit.NoteAddEditScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
@@ -28,23 +31,41 @@ fun AppNavHost(
             val homeViewModel = hiltViewModel<HomeViewModel>()
             HomeScreen(
                 homeViewModel = homeViewModel,
-                onNavigateToNewsDetail = {noteIndex ->
-                    navController.navigate(NavigationItem.NoteDetail.passNoteIndex(noteIndex))
+                onNavigateToNoteAddEdit = { noteIndex: Int? ->
+                    if (noteIndex != null) {
+                        navController.navigate(NavigationItem.NoteAddEdit.passNoteIndex(noteIndex))
+                    } else {
+                        navController.navigate(NavigationItem.NoteAddEdit.route)
+                    }
                 }
             )
         }
 
         composable(
-            NavigationItem.NoteDetail.route,
-            arguments = listOf(navArgument("noteIndex") {
-                type = NavType.IntType
-            })
-        ) {backStackEntry ->
+            NavigationItem.NoteAddEdit.route,
+        ) { backStackEntry ->
             val parentEntry = remember(backStackEntry) {
                 navController.getBackStackEntry(NavigationItem.Home.route)
             }
             val homeViewModel = hiltViewModel<HomeViewModel>(parentEntry)
-            NoteDetailScreen(
+            NoteAddEditScreen(
+                navController = navController,
+                homeViewModel = homeViewModel,
+                noteIndex = null
+            )
+        }
+
+        composable(
+            NavigationItem.NoteAddEdit.getEditRoute,
+            arguments = listOf(navArgument("noteIndex") {
+                type = NavType.IntType
+            })
+        ) { backStackEntry ->
+            val parentEntry = remember(backStackEntry) {
+                navController.getBackStackEntry(NavigationItem.Home.route)
+            }
+            val homeViewModel = hiltViewModel<HomeViewModel>(parentEntry)
+            NoteAddEditScreen(
                 navController = navController,
                 homeViewModel = homeViewModel,
                 noteIndex = backStackEntry.arguments?.getInt("noteIndex")

@@ -15,15 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.notz.ui.screen.home.components.HomeScreenAppBar
 import com.example.notz.ui.screen.home.components.HomeScreenBody
 
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel,
-    onNavigateToNewsDetail: (noteIndex: Int) -> Unit
+    onNavigateToNoteAddEdit: (noteIndex: Int?) -> Unit
 ) {
     val notesState = homeViewModel.state.collectAsState().value
 
@@ -33,7 +31,8 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                homeViewModel.getNotes()
+                onNavigateToNoteAddEdit(null)
+//                homeViewModel.getNotes()
             }) {
                 Icon(
                     Icons.Default.Add,
@@ -45,7 +44,10 @@ fun HomeScreen(
         floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            HomeScreenBody(notesState = notesState, onNavigateToNewsDetail = onNavigateToNewsDetail)
+            HomeScreenBody(
+                notesState = notesState,
+                onNavigateToNoteAddEdit = onNavigateToNoteAddEdit,
+            )
         }
     }
 }
@@ -55,7 +57,7 @@ fun HomeScreen(
 fun HomeScreePreview() {
     HomeScreen(
         homeViewModel = hiltViewModel<HomeViewModel>(),
-        onNavigateToNewsDetail = {noteIndex ->  }
+        onNavigateToNoteAddEdit = {},
     )
 }
 

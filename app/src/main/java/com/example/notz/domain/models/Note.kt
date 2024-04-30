@@ -1,7 +1,10 @@
 package com.example.notz.domain.models
 
 import androidx.compose.ui.graphics.Color
-class Note(
+import com.example.notz.data.models.cache_dto.NoteCacheDto
+
+data class Note(
+    val id: Long?,
     val title: String,
     val description: String,
     val createdAt: String,
@@ -16,3 +19,11 @@ enum class NoteTag(val color: Color) {
     ToDo(Color.Yellow)
 }
 
+fun Note.toCacheDto(): NoteCacheDto = NoteCacheDto(
+    id =  id ?: 0,
+    title = title,
+    description = description,
+    createdAt = createdAt,
+    lastEditedAt = lastEditedAt,
+    noteTag = noteTag,
+)

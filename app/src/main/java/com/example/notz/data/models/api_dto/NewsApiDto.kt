@@ -1,4 +1,4 @@
-package com.example.notz.data.models
+package com.example.notz.data.models.api_dto
 
 data class NewsApiDto (
     val status: String?,
