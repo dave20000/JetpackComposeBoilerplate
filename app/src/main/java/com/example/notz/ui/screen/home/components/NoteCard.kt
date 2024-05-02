@@ -1,7 +1,10 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.example.notz.ui.screen.home.components
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,10 +12,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +32,37 @@ fun NoteCard(
     noteIndex: Int,
     onNavigateToNoteAddEdit: (noteIndex: Int) -> Unit,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
+    if (isPressed) {
+
+        //Use if + DisposableEffect to wait for the press action is completed
+        DisposableEffect(Unit) {
+            onDispose {
+                println("released")
+            }
+        }
+    }
+
+//    val extraPadding by animateDpAsState(
+//        if (isPressed) 12.dp else 16.dp,
+//        label = "Extra Padding",
+//        animationSpec = spring(
+//            dampingRatio = Spring.DampingRatioMediumBouncy,
+//            stiffness = Spring.StiffnessLow
+//        )
+//    )
+
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.9f else 1.0f,
+        label = "Scale Animation",
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
+
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -33,13 +70,14 @@ fun NoteCard(
         onClick = {
             onNavigateToNoteAddEdit(noteIndex)
         },
+        interactionSource = interactionSource,
         colors = CardDefaults.cardColors(),
+        modifier = Modifier.scale(scale.coerceAtLeast(0.8f))
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
             if (note.title.isNotEmpty())
                 Text(
                     text = note.title,
@@ -79,7 +117,6 @@ fun NoteCard(
                 text = note.createdAt,
                 fontSize = 14.sp,
             )
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

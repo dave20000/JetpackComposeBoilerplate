@@ -2,11 +2,7 @@ package com.example.notz.ui.screen.home.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -25,93 +21,57 @@ import com.example.notz.data.models.api_dto.toModel
 import com.example.notz.domain.states.NotesState
 
 @Composable
-fun HomeScreenBody(
+fun NotesGrid(
     notesState: NotesState,
     onNavigateToNoteAddEdit: (noteIndex: Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-        Text(
-            text = "Recent Notes",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        NotesList(
-            notesState = notesState,
-            onNavigateToNoteAddEdit = onNavigateToNoteAddEdit,
-        )
-    }
-}
-
-@Composable
-fun NotesList(
-    notesState: NotesState,
-    onNavigateToNoteAddEdit: (noteIndex: Int) -> Unit,
-) {
-    when (notesState) {
-        NotesState.Initial -> Box {}
-        NotesState.Loading -> Box(modifier = Modifier.fillMaxSize()) {
-            CircularProgressIndicator(
+    Box(modifier = modifier.fillMaxSize()) {
+        when (notesState) {
+            NotesState.Initial -> Box {}
+            NotesState.Loading -> CircularProgressIndicator(
                 modifier = Modifier
                     .size(32.dp)
                     .align(Alignment.Center)
             )
-        }
 
-//        is NotesState.Loaded -> LazyColumn {
-//            itemsIndexed(notesState.notes) { index, note ->
-//                Box(
-//                    modifier = Modifier.padding(bottom = 16.dp)
-//                ) {
-//                    NoteCard(
-//                        note = note, noteIndex = index,
-//                        bgColor = Color.Companion.random(),
-//                        navController
-//                    )
-//                }
-//            }
-//        }
-
-        is NotesState.Loaded ->
-            if (notesState.notes.isEmpty())
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text("Start adding notes", fontSize = 22.sp)
-                }
-            else
-                LazyVerticalStaggeredGrid(
-                    columns = StaggeredGridCells.Fixed(2),
-                    verticalItemSpacing = 8.dp,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    content = {
-                        itemsIndexed(notesState.notes) { index, note ->
-                            NoteCard(
-                                note = note, noteIndex = index,
-                                onNavigateToNoteAddEdit = onNavigateToNoteAddEdit,
-                            )
-                        }
-                    },
-                    modifier = Modifier.fillMaxSize()
+            is NotesState.Loaded ->
+                if (notesState.notes.isEmpty())
+                    Box(
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text("Start adding notes", fontSize = 22.sp)
+                    }
+                else
+                    LazyVerticalStaggeredGrid(
+                        columns = StaggeredGridCells.Fixed(2),
+                        verticalItemSpacing = 8.dp,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        content = {
+                            itemsIndexed(notesState.notes) { index, note ->
+                                NoteCard(
+                                    note = note, noteIndex = index,
+                                    onNavigateToNoteAddEdit = onNavigateToNoteAddEdit,
+                                )
+                            }
+                        },
+                    )
+            is NotesState.Error ->
+                Text(
+                    text = "Something Went Wrong",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
                 )
 
-        is NotesState.Error -> Box(modifier = Modifier.fillMaxSize()) {
-            Text(
-                text = "Something Went Wrong",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-            )
         }
     }
 }
 
 @Preview
 @Composable
-fun NotesListPreview() {
-    NotesList(
+fun NotesGridPreview() {
+    NotesGrid(
         notesState = NotesState.Loaded(notes.map { it.toModel() }.toList()),
         onNavigateToNoteAddEdit = {},
     )
