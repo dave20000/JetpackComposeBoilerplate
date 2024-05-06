@@ -63,7 +63,7 @@ fun AppNavHost(
         }
 
         composable(
-            NavigationItem.NoteAddEdit.getEditRoute,
+            NavigationItem.NoteAddEdit.EDIT_ROUTE,
             arguments = listOf(navArgument("noteIndex") {
                 type = NavType.IntType
             }),

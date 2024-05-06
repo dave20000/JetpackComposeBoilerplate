@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notz</string>
+    <string name="recent_notes">हाल के नोट्स</string>
+    <string name="start_adding_notes">नोट्स जोड़ना प्रारंभ करें</string>
+    <string name="something_went_wrong">कुछ गलत हो गया</string>
+    <string name="title">शीर्षक</string>
+    <string name="note">टिप्पणी</string>
+</resources>

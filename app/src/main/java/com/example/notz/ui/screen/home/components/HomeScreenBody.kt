@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.notz.R
 import com.example.notz.domain.states.NotesState
 
 @Composable
@@ -20,7 +22,7 @@ fun HomeScreenBody(
 ) {
     Column(modifier = modifier.padding(horizontal = 16.dp)) {
         Text(
-            text = "Recent Notes",
+            text = stringResource(R.string.recent_notes),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
@@ -30,5 +32,6 @@ fun HomeScreenBody(
             notesState = notesState,
             onNavigateToNoteAddEdit = onNavigateToNoteAddEdit,
         )
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }

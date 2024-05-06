@@ -12,10 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.notz.R
 import com.example.notz.core.notes
 import com.example.notz.data.models.api_dto.toModel
 import com.example.notz.domain.states.NotesState
@@ -40,7 +42,10 @@ fun NotesGrid(
                     Box(
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text("Start adding notes", fontSize = 22.sp)
+                        Text(
+                            stringResource(R.string.start_adding_notes),
+                            fontSize = 22.sp,
+                        )
                     }
                 else
                     LazyVerticalStaggeredGrid(
@@ -56,9 +61,10 @@ fun NotesGrid(
                             }
                         },
                     )
+
             is NotesState.Error ->
                 Text(
-                    text = "Something Went Wrong",
+                    text = stringResource(R.string.something_went_wrong),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,

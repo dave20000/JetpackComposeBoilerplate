@@ -5,11 +5,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiService {
     companion object {
-        private const val baseUrl = "https://newsapi.org/v2/"
+        private const val BASE_URL = "https://newsapi.org/v2/"
 
         private val retrofit: Retrofit by lazy {
             Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
